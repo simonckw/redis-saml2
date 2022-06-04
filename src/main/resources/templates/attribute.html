@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+  <title>Spring Boot + Spring Security with SAML 2.0</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Secured Page</h1>
+  <p th:text="'SP entityID: ' + ${spEntityId}" />
+  <p th:text="'Name: ' + ${name}" />
+  <table>
+    <thead>
+      <tr>
+        <th> Session Index </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:if="${sessionIndexes.empty}">
+        <td colspan="1"> Nil </td>
+      </tr>
+      <tr th:each="SessionIndex : ${SessionIndexes}">
+        <td><span th:text="${sessionIndex}"> SessionIndex </span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p></p>
+  <table>
+    <thead>
+      <tr>
+        <th> No </th>
+        <th> Attribute </th>
+        <th> Value </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:if="${attributes.empty}">
+        <td colspan="1"> Nil </td>
+      </tr>
+      <tr th:each="entry, stat : ${attributes}">
+        <td><span th:text="${stat.index + 1}"> No </span></td>
+        <td><span th:text="${entry.key}"> Attribute </span></td>
+        <td><span th:text="${entry.value}"> Value </span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p></p>
+</body>
+
+</html>

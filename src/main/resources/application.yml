@@ -1,0 +1,50 @@
+spring:
+  security:
+    saml2:
+      relyingparty:
+        registration:
+          okta-saml: # registrationId
+            # "baseUrl", "registrationId", "baseScheme", "baseHost", and "basePort".
+            # entity-id: "http://{baseUrl}/saml2/service-provider-metadata/{registrationId}"
+            entity-id: http://localhost:8080/saml2/service-provider-metadata/okta-saml
+            acs:
+              location: "http://localhost:8080/login/saml2/sso/okta-saml"
+              binding: POST
+            # signing:
+            #   credentials:
+            #     - private-key-location: RsaKeyConverters.pkcs8().convert(inputStream)
+            #       certificate-location: (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(inputStream)
+            # decryption:
+            #   credentials:
+            #     - private-key-location:
+            #       certificate-location:
+            # identityprovider: # before 2.7.0
+            assertingparty:  # since 2.7.0
+              entityId: "http://www.okta.com/exk57mj7molysmmYm5d7"
+              metadataUri: https://dev-26681931.okta.com/app/exk57mj7molysmmYm5d7/sso/saml/metadata
+              singlesignon:
+                url: https://dev-26681931.okta.com/app/dev-26681931_springbootadmin_1/exk57mj7molysmmYm5d7/sso/saml
+                binding: POST
+                signRequest: false
+              verification:
+                credentials:
+                  - certificate-location: "classpath:saml-certificate/okta.crt"
+                    # private-key-location:
+            # singlelogout: # since 2.7.0
+            #   url:
+            #   response-url:
+            #   binding: POST
+
+server.servlet.session.cookie.http-only: true
+server.servlet.session.cookie.secure: true
+
+spring.session.timeout: 15m
+
+spring.mvc.log-request-details: true
+
+logging.level:
+  org.springframework.security: TRACE
+  org.springframework.security.saml: TRACE
+  org.opensaml: TRACE
+
+
