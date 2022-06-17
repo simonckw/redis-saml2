@@ -18,7 +18,10 @@ public class SessionController {
   @RequestMapping("/secured/attribute")
   public String hello(@AuthenticationPrincipal Saml2AuthenticatedPrincipal principal,
       HttpServletRequest request, Model model) {
+
+    // Spring-boot 2.6 or above
     model.addAttribute("rpRegistrationId", principal.getRelyingPartyRegistrationId());
+
     model.addAttribute("name", principal.getName());
     model.addAttribute("attributes", principal.getAttributes());
 

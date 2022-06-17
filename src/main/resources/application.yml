@@ -35,6 +35,5 @@ spring:
             #   response-url:
             #   binding: POST
 
-spring.session.timeout: 15m
 
 
