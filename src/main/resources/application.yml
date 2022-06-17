@@ -3,12 +3,12 @@ spring:
     saml2:
       relyingparty:
         registration:
-          okta-saml: # registrationId
+          redis-saml2: # registrationId
             # "baseUrl", "registrationId", "baseScheme", "baseHost", and "basePort".
             # entity-id: "http://{baseUrl}/saml2/service-provider-metadata/{registrationId}"
-            entity-id: http://localhost:8080/saml2/service-provider-metadata/okta-saml
+            entity-id: redis-saml2
             acs:
-              location: "http://localhost:8080/login/saml2/sso/okta-saml"
+              location: "http://localhost:8080/login/saml2/sso/redis-saml2"
               binding: POST
             # signing:
             #   credentials:
@@ -35,16 +35,6 @@ spring:
             #   response-url:
             #   binding: POST
 
-server.servlet.session.cookie.http-only: true
-server.servlet.session.cookie.secure: true
-
 spring.session.timeout: 15m
-
-spring.mvc.log-request-details: true
-
-logging.level:
-  org.springframework.security: TRACE
-  org.springframework.security.saml: TRACE
-  org.opensaml: TRACE
 
 

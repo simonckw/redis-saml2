@@ -17,23 +17,8 @@
 
 <body>
   <h1>Secured Page</h1>
-  <p th:text="'SP entityID: ' + ${spEntityId}" />
+  <p th:text="'RegistrationId: ' + ${rpRegistrationId}" />
   <p th:text="'Name: ' + ${name}" />
-  <table>
-    <thead>
-      <tr>
-        <th> Session Index </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:if="${sessionIndexes.empty}">
-        <td colspan="1"> Nil </td>
-      </tr>
-      <tr th:each="SessionIndex : ${SessionIndexes}">
-        <td><span th:text="${sessionIndex}"> SessionIndex </span></td>
-      </tr>
-    </tbody>
-  </table>
   <p></p>
   <table>
     <thead>

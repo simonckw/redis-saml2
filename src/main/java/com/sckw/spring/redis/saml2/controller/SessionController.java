@@ -18,8 +18,7 @@ public class SessionController {
   @RequestMapping("/secured/attribute")
   public String hello(@AuthenticationPrincipal Saml2AuthenticatedPrincipal principal,
       HttpServletRequest request, Model model) {
-    model.addAttribute("spEntityId", principal.getRelyingPartyRegistrationId());
-    model.addAttribute("sessionIndexes", principal.getSessionIndexes());
+    model.addAttribute("rpRegistrationId", principal.getRelyingPartyRegistrationId());
     model.addAttribute("name", principal.getName());
     model.addAttribute("attributes", principal.getAttributes());
 
