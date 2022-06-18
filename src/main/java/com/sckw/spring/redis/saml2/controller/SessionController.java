@@ -1,7 +1,11 @@
 package com.sckw.spring.redis.saml2.controller;
 
+import com.sckw.spring.redis.saml2.service.SecuredService;
+import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticatedPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class SessionController {
+
+  private SecuredService securedService;
+
+  public SessionController(SecuredService securedService) {
+    this.securedService = securedService;
+  }
+
 
   @RequestMapping("/")
   public String index() {
@@ -24,6 +35,12 @@ public class SessionController {
 
     model.addAttribute("name", principal.getName());
     model.addAttribute("attributes", principal.getAttributes());
+
+    var authorities = (Collection<? extends GrantedAuthority>) SecurityContextHolder.getContext()
+        .getAuthentication().getAuthorities();
+
+    model.addAttribute("authorities", authorities);
+    model.addAttribute("Secured", securedService.getData());
 
     return "attribute";
   }

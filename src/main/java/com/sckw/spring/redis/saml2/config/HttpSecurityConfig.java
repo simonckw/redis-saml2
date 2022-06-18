@@ -10,9 +10,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class HttpSecurityConfig {
 
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  public SecurityFilterChain filterChain(HttpSecurity http, Saml2LoginSettings saml2LoginSettings)
+      throws Exception {
 
-    http.authorizeHttpRequests((authz) -> authz.anyRequest().authenticated()).saml2Login();
+    http.authorizeHttpRequests((authz) -> authz.anyRequest().hasRole("ADMIN"))
+        .saml2Login(saml2LoginSettings);
 
     return http.build();
   }

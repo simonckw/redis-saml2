@@ -17,6 +17,7 @@
 
   <properties>
     <opensaml.version>4.1.1</opensaml.version>
+    <java.version>11</java.version>
   </properties>
 
   <dependencies>

@@ -40,6 +40,23 @@
     </tbody>
   </table>
   <p></p>
+  <table>
+    <thead>
+      <tr>
+        <th> Authorities </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:if="${authorities.empty}">
+        <td colspan="1"> Nil </td>
+      </tr>
+      <tr th:each="authority : ${authorities}">
+        <td><span th:text="${authority.authority}"> Authority </span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p></p>
+  <p th:text="'Secured method: ' + ${Secured}" />
 </body>
 
 </html>
