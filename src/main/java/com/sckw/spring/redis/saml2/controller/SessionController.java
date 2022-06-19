@@ -1,10 +1,9 @@
 package com.sckw.spring.redis.saml2.controller;
 
 import com.sckw.spring.redis.saml2.service.SecuredService;
-import java.util.Collection;
+import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticatedPrincipal;
 import org.springframework.stereotype.Controller;
@@ -27,19 +26,28 @@ public class SessionController {
   }
 
   @RequestMapping("/secured/attribute")
-  public String hello(@AuthenticationPrincipal Saml2AuthenticatedPrincipal principal,
+  public String attribute(Principal principal, Authentication authentication,
       HttpServletRequest request, Model model) {
 
+    // Saml2 specific data can be obtained if required
+
+    var saml2Principal = (Saml2AuthenticatedPrincipal) SecurityContextHolder.getContext()
+        .getAuthentication().getPrincipal();
+
     // Spring-boot 2.6 or above
-    model.addAttribute("rpRegistrationId", principal.getRelyingPartyRegistrationId());
+    model.addAttribute("rpRegistrationId", saml2Principal.getRelyingPartyRegistrationId());
+    model.addAttribute("attributes", saml2Principal.getAttributes());
+
+
+    // Name and authorities as generic Spring Security objects; should be good in most situations
 
     model.addAttribute("name", principal.getName());
-    model.addAttribute("attributes", principal.getAttributes());
 
-    var authorities = (Collection<? extends GrantedAuthority>) SecurityContextHolder.getContext()
-        .getAuthentication().getAuthorities();
-
+    var authorities = authentication.getAuthorities();
     model.addAttribute("authorities", authorities);
+
+
+    // Testing Spring Method Security
     model.addAttribute("Secured", securedService.getData());
 
     return "attribute";
