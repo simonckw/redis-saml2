@@ -2,7 +2,6 @@ package com.sckw.spring.redis.saml2.controller;
 
 import com.sckw.spring.redis.saml2.service.SecuredService;
 import java.security.Principal;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticatedPrincipal;
@@ -26,8 +25,7 @@ public class SessionController {
   }
 
   @RequestMapping("/secured/attribute")
-  public String attribute(Principal principal, Authentication authentication,
-      HttpServletRequest request, Model model) {
+  public String attribute(Principal principal, Authentication authentication, Model model) {
 
     // Saml2 specific data can be obtained if required
 
